@@ -48,6 +48,22 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
             this.txtItem.setText("");
         }
     }
+    
+    /**
+     * Precondition: no repeated items in toDoItems. (If there are repeated items, they will all be removed.)
+     */
+    private void removeItem(String item){
+        if(item.length() > 0){
+            for(int fuat = 0; fuat < toDoItems.size(); fuat++)
+            {
+                if(toDoItems.get(fuat).equals(item))
+                {
+                    toDoItems.remove(fuat);
+                }
+            }
+        }
+    }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
