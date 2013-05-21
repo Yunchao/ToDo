@@ -13,17 +13,23 @@
             android:layout_height="wrap_content"
             android:text="@string/add_item"
             android:id="@+id/btnAdd"
-            android:layout_below="@+id/txtItem" android:layout_alignRight="@+id/txtItem"
-            android:layout_alignLeft="@+id/txtItem"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true" android:layout_below="@+id/txtItem"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Enter a new task below:"
+            android:id="@+id/txtviewEnterNewTask"
+            android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtItem" android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true" android:layout_alignParentRight="true"/>
+            android:id="@+id/txtItem" android:layout_below="@+id/txtviewEnterNewTask" android:layout_alignLeft="@+id/txtviewEnterNewTask"
+            android:layout_alignParentRight="true"/>
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listItems"
-            android:layout_below="@+id/btnAdd" android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" android:layout_alignParentLeft="true"/>
+            android:id="@+id/listItems" android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/btnAdd"
+            android:layout_below="@+id/btnAdd"/>
 </RelativeLayout>

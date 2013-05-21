@@ -28,6 +28,7 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        // assign variables to actual elements in the layout
         txtItem = (EditText)findViewById(R.id.txtItem);
         btnAdd = (Button)findViewById(R.id.btnAdd);
         listItems = (ListView)findViewById(R.id.listItems);
