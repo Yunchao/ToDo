@@ -9,7 +9,7 @@
     tools:context=".Main">
 
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_item"
             android:id="@+id/btnAdd"
@@ -23,12 +23,12 @@
             android:id="@+id/txtviewEnterNewTask"
             android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
     <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtItem" android:layout_below="@+id/txtviewEnterNewTask" android:layout_alignLeft="@+id/txtviewEnterNewTask"
             android:layout_alignParentRight="true"/>
     <ListView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listItems" android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/btnAdd"
             android:layout_below="@+id/btnAdd"/>
