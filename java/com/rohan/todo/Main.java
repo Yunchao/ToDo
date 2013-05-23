@@ -54,11 +54,11 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
      */
     private void removeItem(String item){
         if(item.length() > 0){
-            for(int fuat = 0; fuat < toDoItems.size(); fuat++)
+            for(int q = 0; q < toDoItems.size(); q++)
             {
-                if(toDoItems.get(fuat).equals(item))
+                if(toDoItems.get(q).equals(item))
                 {
-                    toDoItems.remove(fuat);
+                    toDoItems.remove(q);
                 }
             }
         }
