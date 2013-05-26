@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
@@ -51,8 +52,9 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu);
+        MenuItem item;
+        item = menu.add("Remove Tasks");
         return true;
     }
 
