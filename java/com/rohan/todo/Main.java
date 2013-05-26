@@ -1,5 +1,6 @@
 package com.rohan.todo;
 
+import android.content.DialogInterface;
 import com.rohan.todo.R; //not unused as Android Studio says it is, needed to refer to the parts of the XML layout
 import android.os.Bundle;
 import android.app.Activity;
@@ -7,15 +8,15 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
-import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-public class Main extends Activity implements OnClickListener, OnKeyListener {
+public class Main extends Activity implements View.OnClickListener, DialogInterface.OnClickListener, OnKeyListener {
 
     EditText txtItem;
     Button btnAdd;
@@ -23,6 +24,8 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
 
     ArrayList<String> toDoItems;
     ArrayAdapter<String> aa;
+
+    String currentMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,31 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
         }
     }
 
+    private void deleteItem(int itemId){
+        if (itemId >= 0){
+            String itemName = (String)listItems.getItemAtPosition(itemId);
+            Toast.makeText(getApplicationContext(), itemName + " deleted", Toast.LENGTH_SHORT).show();
+            this.toDoItems.remove(itemId);
+            aa.notifyDataSetChanged();
+        }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        if(item.hasSubMenu() == false){
+            if(item.getTitle() == "Remove Selected Task"){
+                int index = listItems.getSelectedItemPosition();
+                this.deleteItem(index);
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuItem item;
-        item = menu.add("Remove Tasks");
+        item = menu.add("Remove Selected Task");
         return true;
     }
 
@@ -69,6 +92,10 @@ public class Main extends Activity implements OnClickListener, OnKeyListener {
             this.addItem(this.txtItem.getText().toString());
         }
         return false;
+    }
+
+    public void onClick(DialogInterface dialog, int item){
+        // ToDo
     }
 
 }
