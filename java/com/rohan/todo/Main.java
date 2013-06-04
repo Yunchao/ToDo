@@ -31,7 +31,26 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        ListView listContent = (ListView) findViewById(R.id.customlist);
+        
+        /*
+         * Create/Open a SQLite database and fill with dummy content and close
+         * it
+         */
+        mySQLiteAdapter = new SQLiteAdapter(this);
+        mySQLiteAdapter.openToWrite();
+        // mySQLiteAdapter.deleteAll();
+        mySQLiteAdapter = new SQLiteAdapter(this);
+        mySQLiteAdapter.openToRead();
+        final Cursor cursor = mySQLiteAdapter.queueAll();
+        startManagingCursor(cursor);
+        String[] from = new String[] { SQLiteAdapter.KEY_CONTENT };
+        int[] to = new int[] { R.id.text };
+        final SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
+            R.layout.row, cursor, from, to);
+        listContent.setAdapter(cursorAdapter);
+        mySQLiteAdapter.close();
+    
         // assign variables to actual elements in the layout
         txtItem = (EditText)findViewById(R.id.txtItem);
         btnAdd = (Button)findViewById(R.id.btnAdd);
