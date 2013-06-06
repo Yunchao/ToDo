@@ -35,12 +35,15 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         btnAdd = (Button)findViewById(R.id.btnAdd);
         listItems = (ListView)findViewById(R.id.listItems);
 
+        // make the button and text box have listenrs to watch their state
         btnAdd.setOnClickListener(this);
         txtItem.setOnKeyListener(this);
 
         toDoItems = new ArrayList<String>();
         aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, toDoItems);
         listItems.setAdapter(aa);
+        
+        // make items in the listview clickable and then make it so when one is pressed, it deletes the item
         listItems.setClickable = true;
         lv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -49,6 +52,9 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         });
     }
 
+    /*
+     * Method that adds the item of concents "item" to the ArrayList and ListView
+    */
     private void addItem(String item){
         if(item.length() > 0){
             this.toDoItems.add(item);
@@ -57,6 +63,9 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         }
     }
 
+    /*
+     * Method that deletes the item at position "itemId" in the ArrayList and ListView
+    */
     private void deleteItem(int itemId){
         if (itemId >= 0){
             String itemName = (String)listItems.getItemAtPosition(itemId);
@@ -66,12 +75,20 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         }
     }
 
+    /*
+     * Implementation of OnClickListener for the button, so that it adds the text in txtItem
+     * to the ListView and ArrayList using the addItem() method
+    */
     public void onClick(View v){
         if(v == this.btnAdd){
             this.addItem(this.txtItem.getText().toString());
         }
     }
-
+    
+    /*
+     * Implementation of onKeyListener so that devices with a physical enter button can just
+     * press the center button to add an item instead of pressing the button
+    */
     public boolean onKey(View v, int keyCode, KeyEvent event){
         if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
             this.addItem(this.txtItem.getText().toString());
