@@ -23,8 +23,6 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
     ArrayList<String> toDoItems;
     ArrayAdapter<String> aa;
 
-    String currentMenu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
