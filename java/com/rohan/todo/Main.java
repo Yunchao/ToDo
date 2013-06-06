@@ -1,13 +1,11 @@
 package com.rohan.todo;
 
-import android.content.DialogInterface;
 import com.rohan.todo.R; //not unused as Android Studio says it is, needed to refer to the parts of the XML layout
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.MenuItem;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.Button;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-public class Main extends Activity implements View.OnClickListener, DialogInterface.OnClickListener, OnKeyListener {
+public class Main extends Activity implements View.OnClickListener, OnKeyListener {
 
     EditText txtItem;
     Button btnAdd;
@@ -62,25 +60,6 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
         }
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        if(item.hasSubMenu() == false){
-            if(item.getTitle() == "Remove Selected Task"){
-                int index = listItems.getSelectedItemPosition();
-                this.deleteItem(index);
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuItem item;
-        item = menu.add("Remove Selected Task");
-        return true;
-    }
-
     public void onClick(View v){
         if(v == this.btnAdd){
             this.addItem(this.txtItem.getText().toString());
@@ -92,10 +71,6 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
             this.addItem(this.txtItem.getText().toString());
         }
         return false;
-    }
-
-    public void onClick(DialogInterface dialog, int item){
-        // ToDo
     }
 
 }
