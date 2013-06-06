@@ -41,6 +41,7 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         toDoItems = new ArrayList<String>();
         aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, toDoItems);
         listItems.setAdapter(aa);
+        listItems.setClickable = true;
     }
 
     private void addItem(String item){
