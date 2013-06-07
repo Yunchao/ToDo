@@ -13,8 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import android.content.DialogInterface;
 
-public class Main extends Activity implements View.OnClickListener, OnKeyListener {
+public class Main extends Activity implements View.OnClickListener, DialogInterface.OnClickListener, OnKeyListener {
 
     EditText txtItem;
     Button btnAdd;
@@ -48,6 +49,20 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
                 this.deleteItem(position);
             }
         });
+        
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+            case DialogInterface.BUTTON_POSITIVE:
+                //Yes button clicked
+                break;
+
+            case DialogInterface.BUTTON_NEGATIVE:
+                //No button clicked
+                break;
+            }
+        };
     }
 
     /*
