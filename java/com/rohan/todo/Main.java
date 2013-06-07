@@ -43,7 +43,7 @@ public class Main extends Activity implements View.OnClickListener, OnKeyListene
         
         // make items in the listview clickable and then make it so when one is pressed, it deletes the item
         listItems.setClickable = true;
-        lv.setOnItemClickListener(new OnItemClickListener() {
+        listItems.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 this.deleteItem(position);
             }
