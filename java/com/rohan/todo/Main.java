@@ -10,12 +10,14 @@ import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
+import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import android.content.DialogInterface;
 
-public class Main extends Activity implements View.OnClickListener, DialogInterface.OnClickListener, OnKeyListener {
+public class Main extends Activity implements View.OnClickListener, OnKeyListener {
+    private CommentsDataSource datasource;
 
     EditText txtItem;
     Button btnAdd;
@@ -29,6 +31,15 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        datasource = new CommentsDataSource(this);
+        datasource.open();
+    
+        List<Comment> values = datasource.getAllComments();
+         
+        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
+        android.R.layout.simple_list_item_1, values);
+        setListAdapter(adapter); 
+         
         // assign variables to actual elements in the layout
         txtItem = (EditText)findViewById(R.id.txtItem);
         btnAdd = (Button)findViewById(R.id.btnAdd);
@@ -49,21 +60,32 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
                 this.deleteItem(position);
             }
         });
-        
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-            case DialogInterface.BUTTON_POSITIVE:
-                //Yes button clicked
-                break;
-
-            case DialogInterface.BUTTON_NEGATIVE:
-                //No button clicked
-                break;
-            }
-        };
     }
+    
+    // Will be called via the onClick attribute
+    // of the buttons in main.xml
+    public void onClick(View view) {
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+        Comment comment = null;
+        switch (view.getId()) {
+        case R.id.add:
+            String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
+            int nextInt = new Random().nextInt(3);
+            // Save the new comment to the database
+            comment = datasource.createComment(comments[nextInt]);
+            adapter.add(comment);
+            break;
+        case R.id.delete:
+            if (getListAdapter().getCount() > 0) {
+                comment = (Comment) getListAdapter().getItem(0);
+                datasource.deleteComment(comment);
+                adapter.remove(comment);
+            }
+            break;
+        }
+        adapter.notifyDataSetChanged();
+  }
 
     /*
      * Method that adds the item of concents "item" to the ArrayList and ListView
@@ -87,6 +109,18 @@ public class Main extends Activity implements View.OnClickListener, DialogInterf
             aa.notifyDataSetChanged();
         }
     }
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+        }
 
     /*
      * Implementation of OnClickListener for the button, so that it adds the text in txtItem
